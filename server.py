@@ -23,8 +23,8 @@ app.config['CORS_HEADERS'] = 'SixSigma'
 #    test = unittest.TestLoader().discover('test')
 #    unittest.TextTestRunner().run(test)
 
-data1 = 0
-data2 = 0
+data11 = 0
+data22 = 0
 
 # Routes
 @app.route('/', methods=['GET'])
@@ -41,10 +41,10 @@ def get_web():
         and 400 if not"""
     if request.method == 'POST':
         web_site = request.json['web']
-        global data1
-        global data2
-        data1, data2 = Utils.get_scrapi_data(web_site)
-        if data1 == 0 :
+        global data11
+        global data22
+        data11, data22 = Utils.get_scrapi_data(web_site)
+        if data11 == 0 :
             response = make_response(f'something was wrong with {web_site}, please check if the web site is correct',
                     400,)
         else : 
@@ -60,14 +60,14 @@ def get_web():
 @app.route('/data1', methods=['GET'])
 @cross_origin()
 def data1():
-    response = make_response(data1,200,)
+    response = make_response(data11,200,)
     return response
         
 
 @app.route('/data2', methods=['GET'])
 @cross_origin()
 def data2():
-    response = make_response(data2, 200,)
+    response = make_response(data22, 200,)
     return response
 
 
