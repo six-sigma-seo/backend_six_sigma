@@ -55,6 +55,7 @@ def get_web():
 @app.route('/textualalternatives', methods=['GET'])
 @cross_origin()
 def textualalternatives():
+    global data
     textual_data = Utils.get_textual_alternatives(data)
     response = make_response(textual_data,200,)
     return response
@@ -63,6 +64,7 @@ def textualalternatives():
 @app.route('/metadescription', methods=['GET'])
 @cross_origin()
 def metadescription():
+    global data
     meta_data = Utils.get_meta_data(data)
     response = make_response(meta_data,200,)
     return response
@@ -71,6 +73,7 @@ def metadescription():
 @app.route('/titlepage', methods=['GET'])
 @cross_origin()
 def titlepage():
+    global data
     titlepage_data = Utils.get_titlepage_data(data)
     response = make_response(titlepage_data,200,)
     return response
@@ -79,6 +82,7 @@ def titlepage():
 @app.route('/textualhierarchies', methods=['GET'])
 @cross_origin()
 def textualhierarchies():
+    global data
     textualhierarchies_data = Utils.get_textualhierarchies_data(data)
     response = make_response(textualhierarchies_data,200,)
     return response
@@ -86,6 +90,7 @@ def textualhierarchies():
 @app.route('/disusedlabels', methods=['GET'])
 @cross_origin()
 def disusedlabels():
+    global data
     disusedlabels_data = Utils.get_disusedlabels_data(data)
     response = make_response(disusedlabels_data,200,)
     return response
