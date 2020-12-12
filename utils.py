@@ -7,10 +7,19 @@ import json
 
 class Utils:
 
+    def test(web_site):
+        r = requests.get('https://app.scrapinghub.com/api/v2/datasets/UhNGprd2Cts/download?format=json') 
+        if r.status_code == 200:
+            data = r.text
+        else:
+            data = 0
+        return data
+
+
     def get_scrapi_data(web_site):
         """ this funcion resive a web_site and return a diccionary 
             with information about the web site based on a scrapy sistem. """
-        r = requests.get('https://app.scrapinghub.com/api/v2/datasets/UhNGprd2Cts/download?format=json') 
+        r = requests.get('https://app.scrapinghub.com/api/v2/datasets/JNPiQX0xmH0/download?format=json') 
         if r.status_code == 200:
             data = r.text 
             data = data[1:]
@@ -24,49 +33,49 @@ class Utils:
                                 {
                                 "title": "Alternativas Textuales",
                                 "description": "Todos los elementos no visuales de la pagina deben incluir la etiqueta alt para facilitar la lectrura por el robot de Google.",
-                                "boolean": True,
+                                "boolean": data['booleanAT'],
                                 "endpoint": "/textualalternatives"
                                 },
                                 {
                                 "title": "Titulo de pagina",
                                 "description": "Unicamente debe exister una etiqueta title dentro de la estructura de la pagina y el contendio de esta debe ser descriptivo en relación al contenido de la pagina.",
-                                "boolean": True,
+                                "boolean": data['booleanTP'],
                                 "endpoint": "/titlepage"
                                 },
                                 {
                                 "title": "Deaclaración de idioma",
                                 "description": "Se debe especificar el idioma de la pagina con la etiqueta: <html lang=eng>.",
-                                "boolean": True,
-                                "endpoint": "???"
+                                "boolean": data['booleanDI'],
+                                "endpoint": "/languagedeclaration"
                                 },
                                 {
                                 "title": "Estructura Semantica",
                                 "description": "La pagina deberia utilizar un mínimo de etiquetas semánticas las cuales son: header, section, footer, main.",
-                                "boolean": True,
-                                "endpoint": "???"
+                                "boolean": data['booleanES'],
+                                "endpoint": "/semanticstructure"
                                 },
                                 {
                                 "title": "Etiqueta Arial",
                                 "description": "Las etiquetas de button e input deberian tener el atributo aria-label y el contenido de este debe ser superior a 6 caracteres.",
-                                "boolean": True,
-                                "endpoint": "???"
+                                "boolean": data['booleanEA'],
+                                "endpoint": "/ariallabel"
                                 },
                                 {
                                 "title": "Jerarquias Textuales",
                                 "description": "La etiquetas de titulos deben seguir un jerarquia de acuerdo a su orden, solo deberia usarse una vez la etiqueta <h1> por ejemplo.",
-                                "boolean": True,
+                                "boolean": data['booleanJT'],
                                 "endpoint": "/textualhierarchies"
                                 },
                                 {
                                 "title": "Etiquetas en desuso",
                                 "description": "Con el paso de las versiones de html se han dejado de usar ciertas etiquetas, se recomienda su sustitución.",
-                                "boolean": True,
+                                "boolean": data['booleanED'],
                                 "endpoint": "/disusedlabels"
                                 },
                                 {
                                 "title": "Meta información",
                                 "description": "Se recomienda el uso de las etiquetas de meta información para asegurar que el robot de google entienda nuestra pagina. Así como para la correcta representación en redes sociales.",
-                                "boolean": True,
+                                "boolean": data['booleanMI'],
                                 "endpoint": "/metadescription"
                                 }
                             ]
@@ -104,7 +113,7 @@ class Utils:
     def get_titlepage_data(data):
         """something"""
         titlepage_data = {
-                            "titlepage": data['titlepage'],
+                            "titlepage": data['titlepage'], 
                             "qtytitlepage": data['qtytitlepage'],
                             "lenthtitlepage": data['lenthtitlepage'],
                             "rigthdimensiontitlepage": data['rigthdimensiontitlepage'],
@@ -112,12 +121,39 @@ class Utils:
         return titlepage_data
     
 
+    def get_languagedeclaration_data(data):
+        """something"""
+        languagedeclaration_data = {
+                                    "language_tag":data['language_tag']
+                                }
+        return languagedeclaration_data
+    
+
+    def get_semanticstructure_data(data):
+        """something"""
+        semanticstructure_data = {
+                            "title_duplicated":data['title_duplicated'],
+                            "old_tags":data['old_tags'],
+                            "number_tags_h1":data['number_tags_h1'],
+                            "number_tags_h2":data['number_tags_h2'],
+                            "header":data['header'],
+                            "footer":data['footer']
+                        }
+        return semanticstructure_data
+
+    def get_ariallabel_data(data):
+        """something"""
+        semanticstructure_data = {
+                            "buttons_without_arial_tags":data['buttons_without_arial_tags'],
+                        }
+        return semanticstructure_data
+
 
     def get_textualhierarchies_data(data):
         """something"""
         textualhierarchies_data = {
                                     "h1title": data['h1title'],
-                                    "qtyh1title": data['qtyh1title'],
+                                    "qtyh1title": data['qtyh1title']
                                 }
         return textualhierarchies_data
 
