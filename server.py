@@ -41,6 +41,7 @@ def get_web():
         web_site = request.json['web']
         global data
         data, general_data = Utils.get_scrapi_data(web_site)
+        #data = Utils.test(web_site)
         if data == 0 :
             response = make_response(f'something was wrong with {web_site}, please check if the web site is correct',
                     400,)
@@ -59,7 +60,7 @@ def textualalternatives():
     textual_data = Utils.get_textual_alternatives(data)
     response = make_response(textual_data,200,)
     return response
-        
+         
 
 @app.route('/metadescription', methods=['GET'])
 @cross_origin()
@@ -76,6 +77,32 @@ def titlepage():
     global data
     titlepage_data = Utils.get_titlepage_data(data)
     response = make_response(titlepage_data,200,)
+    return response
+
+@app.route('/languagedeclaration', methods=['GET'])
+@cross_origin()
+def languagedeclaration():
+    global data
+    languagedeclaration_data = Utils.get_languagedeclaration_data(data)
+    response = make_response(languagedeclaration_data,200,)
+    return response
+
+
+@app.route('/semanticstructure', methods=['GET'])
+@cross_origin()
+def semanticstructure():
+    global data
+    semanticstructure_data = Utils.get_semanticstructure_data(data)
+    response = make_response(semanticstructure_data,200,)
+    return response
+
+
+@app.route('/ariallabel', methods=['GET'])
+@cross_origin()
+def ariallabel():
+    global data
+    ariallabel_data = Utils.get_ariallabel_data(data)
+    response = make_response(ariallabel_data,200,)
     return response
 
 
